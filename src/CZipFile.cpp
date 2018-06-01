@@ -11,6 +11,11 @@
 #include <sys/stat.h>
 #include <cstring>
 #include "CStringUtilsVFS.h"
+#include <dirent.h>
+
+#ifdef min
+#undef min
+#endif
 
 using namespace vfspp;
 

@@ -12,6 +12,11 @@
 #include "CZipFile.h"
 #include "CStringUtilsVFS.h"
 
+#ifdef _WIN32
+#undef CreateFile
+#undef CopyFile
+#endif
+
 using namespace vfspp;
 
 // *****************************************************************************
