@@ -160,7 +160,7 @@ void CZipFile::Open(int mode)
     
     bool ok = m_ZipArchive->MapFile(absPath, m_Data);
     if (!ok) {
-        VFS_LOG("Cannot open file: %s from zip: %s", absPath.c_str(), m_ZipArchive->Filename().c_str());
+        VFS_LOG("Cannot open file: %s from zip: %s", absPath.c_str(), m_ZipArchive->FileName().c_str());
         return;
     }
     
@@ -193,6 +193,10 @@ void CZipFile::Close()
     }
     
     // TODO: ZIPFS - Add implementation of readwrite mode
+
+	// NOTE: Clear memory
+	m_Data.clear();
+	m_Data.shrink_to_fit();
     
     m_IsOpened = false;
 }

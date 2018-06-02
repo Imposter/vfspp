@@ -109,9 +109,13 @@ IFilePtr CVirtualFileSystem::OpenFile(const CFileInfo& filePath, IFile::FileMode
     {
         const std::string& alias = fs.alias;
         IFileSystemPtr filesystem = fs.filesystem;
+
         if (CStringUtils::StartsWith(filePath.BasePath(), alias) && filePath.AbsolutePath().length() != alias.length())
         {
-            file = filesystem->OpenFile(filePath, mode);
+        	// Remove alias from file path
+	        const CFileInfo fileInfo(filePath.AbsolutePath().substr(alias.size()));
+
+            file = filesystem->OpenFile(fileInfo, mode);
         }
         
         if (file)
