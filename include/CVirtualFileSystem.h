@@ -40,8 +40,8 @@ public:
         {}
     };
     typedef std::list<SSortedAlias> TSortedAliasList;
-    
-public:
+
+
     CVirtualFileSystem();
     ~CVirtualFileSystem();
     
@@ -66,24 +66,51 @@ public:
     /*
      * Get filesystem with 'alias'
      */
-    IFileSystemPtr GetFilesystem(const std::string& alias);
+    IFileSystemPtr GetFileSystem(const std::string& alias);
     
     /*
      * Iterate over all registered filesystems and find first ocurrences of file
      */
-    IFilePtr OpenFile(const CFileInfo& filePath, IFile::FileMode mode);
-
-	 // TODO: Add rename, delete, copy, move, etc. functions.
+    bool FileExists(const CFileInfo& filePath);
     
     /*
-     * Close opened file if it was opened via OpenFirstFile(..)
+     * Iterate over all registered filesystems and find first ocurrences of file, then creates it
      */
-    void CloseFile(IFilePtr file);
+    bool CreateFile(const CFileInfo& filePath);
     
+    /*
+     * Iterate over all registered filesystems and find first ocurrences of file, then opens it
+     */
+    IFilePtr OpenFile(const CFileInfo& filePath, IFile::FileMode mode);
+    
+    /*
+     * Iterate over all registered filesystems and find first ocurrences of file, then removes it
+     */
+    bool RemoveFile(const CFileInfo& filePath);
+    
+    /*
+     * Iterate over all registered filesystems and find first ocurrences of file, then renames it
+     */
+    bool RenameFile(const CFileInfo& srcPath, const CFileInfo& destPath);
+    
+    /*
+     * Iterate over all registered filesystems and find first ocurrences of file, then copies it
+     */
+    bool CopyFile(const CFileInfo& srcPath, const CFileInfo& destPath);
+
 private:
+	/*
+	 * Normalize path
+	 */
+	static CFileInfo GetFileInfoForPath(const CFileInfo& path);
+
+    /*
+     * Get filesystem with 'alias'
+     */
+    TSortedAliasList::value_type getFileSystemAndAliasFromFileInfo(const CFileInfo& path);
+
     TFileSystemMap m_FileSystem;
     TSortedAliasList m_SortedAlias;
-    std::unordered_map<uintptr_t, IFileSystemPtr> m_OpenedFiles;
 };
     
 }; // namespace vfspp
