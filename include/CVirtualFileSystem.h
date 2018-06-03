@@ -72,6 +72,8 @@ public:
      * Iterate over all registered filesystems and find first ocurrences of file
      */
     IFilePtr OpenFile(const CFileInfo& filePath, IFile::FileMode mode);
+
+	 // TODO: Add rename, delete, copy, move, etc. functions.
     
     /*
      * Close opened file if it was opened via OpenFirstFile(..)

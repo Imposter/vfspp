@@ -48,6 +48,10 @@ CFileInfo::CFileInfo(const std::string& filePath)
         
         Initialize(basePath, fileName, false);
     }
+	else
+	{
+		Initialize("/", filePath, false);
+	}
 }
 
 void CFileInfo::Initialize(const std::string& basePath, const std::string& fileName, bool isDir)

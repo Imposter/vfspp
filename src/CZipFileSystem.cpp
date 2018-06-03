@@ -150,34 +150,19 @@ bool CZipFileSystem::CreateFile(const CFileInfo& filePath)
 
 bool CZipFileSystem::RemoveFile(const CFileInfo& filePath)
 {
-    return false; // TODO: Filesystem, temporally not suppoted
+    return false; // Write operations not supported
 }
 
 
 bool CZipFileSystem::CopyFile(const CFileInfo& src, const CFileInfo& dest)
 {
-    bool result = false;
-    if (!IsReadOnly())
-    {
-        CZipFilePtr srcFile = std::static_pointer_cast<CZipFile>(FindFile(src));
-        CZipFilePtr dstFile = std::static_pointer_cast<CZipFile>(OpenFile(dest, IFile::Out));
-        
-        if (srcFile && dstFile)
-        {
-            dstFile->m_Data.assign(srcFile->m_Data.begin(), srcFile->m_Data.end());
-            dstFile->Close();
-            
-            result = true;
-        }
-    }
-    
-    return result;
+	return false; // Write operations not supported
 }
 
 
 bool CZipFileSystem::RenameFile(const CFileInfo& src, const CFileInfo& dest)
 {
-    return false; // TODO: Filesystem, temporally not suppoted
+    return false; // Write operations not supported
 }
 
 

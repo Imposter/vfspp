@@ -20,8 +20,10 @@ class CZip
 public:
     CZip(const std::string& zipPath);
     ~CZip();
-    
-    bool MapFile(const std::string& filename, std::vector<uint8_t>& data);
+
+	bool FindFile(const std::string &fileName, uint32_t &index, uint64_t &size) const;
+	bool ReadFile(uint32_t index, uint8_t *data, size_t offset, size_t size) const;
+
     const std::string& FileName() const;
     
     bool IsReadOnly() const;
@@ -93,11 +95,12 @@ public:
     
 private:
     CZipPtr m_ZipArchive;
-    std::vector<uint8_t> m_Data;
     CFileInfo m_FileInfo;
     bool m_IsReadOnly;
     bool m_IsOpened;
     bool m_HasChanges;
+	uint32_t m_Index;
+	uint64_t m_Size;
     uint64_t m_SeekPos;
     int m_Mode;
 };
