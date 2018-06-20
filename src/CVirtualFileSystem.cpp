@@ -107,6 +107,13 @@ IFileSystemPtr CVirtualFileSystem::GetFileSystem(const std::string &alias)
 	return m_FileSystem[alias];
 }
 
+IFileSystemPtr CVirtualFileSystem::GetFileSystem(const CFileInfo &path)
+{
+	auto a = getFileSystemAndAliasFromFileInfo(path);
+	if (a.alias.empty() && a.filesystem == nullptr) return nullptr;
+	return a.filesystem;
+}
+
 CFileInfo CVirtualFileSystem::GetFileInfoForPath(const CFileInfo &path)
 {
 	auto p = path.AbsolutePath();
@@ -137,7 +144,7 @@ std::list<CVirtualFileSystem::SSortedAlias>::value_type CVirtualFileSystem::getF
 			return a;
 	}
 
-	return { nullptr, nullptr };
+	return { "", nullptr };
 }
 
 bool CVirtualFileSystem::FileExists(const CFileInfo &filePath)

@@ -12,6 +12,11 @@
 #include "IFileSystem.h"
 #include "IFile.h"
 
+#ifdef _WIN32
+#undef CreateFile
+#undef CopyFile
+#endif
+
 namespace vfspp
 {
 CLASS_PTR(IFile)
@@ -67,6 +72,11 @@ public:
      * Get filesystem with 'alias'
      */
     IFileSystemPtr GetFileSystem(const std::string& alias);
+
+	/*
+	 * Get file system from a path
+	 */
+	IFileSystemPtr GetFileSystem(const CFileInfo &path);
     
     /*
      * Iterate over all registered filesystems and find first ocurrences of file

@@ -234,7 +234,7 @@ uint64_t CZipFile::Read(uint8_t* buffer, uint64_t size)
 		return true;
 	}
 
-	return false;
+	return 0;
 }
 
 uint64_t CZipFile::Write(const uint8_t* buffer, uint64_t size)

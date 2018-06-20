@@ -11,6 +11,11 @@
 
 #include "IFileSystem.h"
 
+#ifdef _WIN32
+#undef CreateFile
+#undef CopyFile
+#endif
+
 namespace vfspp
 {
 CLASS_PTR(CMemoryFile);
